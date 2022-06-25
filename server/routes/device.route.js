@@ -6,7 +6,7 @@ let Data = require('./../models/data.model');
 router.route('/update').get((req, res) => {
 	const url = "https://api.sinric.pro/api/v1/devices/";
 
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			if(data.accessToken) {
 				axios.get(url, {
@@ -40,14 +40,14 @@ router.route('/update').get((req, res) => {
 router.route('/get').get((req, res) => {
 	const url = "https://api.sinric.pro/api/v1/devices/";
 
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			res.send({ success: true, devices: data.devices })
 		})	
 });
 
 router.route('/wol/toggle').get((req, res) => {
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			data.wol = !data.wol;
 
@@ -62,7 +62,7 @@ router.route('/wol/toggle').get((req, res) => {
 });
 
 router.route('/wol/get').get((req, res) => {
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			res.send({ success: true, value: data.wol, message: `[SUCCESS] value is ${data.wol}`});
 		})
@@ -74,7 +74,7 @@ router.route('/wol/get').get((req, res) => {
 router.route('/pc_state/update/:value').get((req, res) => {
 	const value = req.params.value;
 
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			data.pc_state = value;
 
@@ -89,7 +89,7 @@ router.route('/pc_state/update/:value').get((req, res) => {
 });
 
 router.route('/pc_state/get').get((req, res) => {
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			res.send({ success: true, value: data.pc_state, message: `[SUCCESS] value is ${data.pc_state}`});
 		})
@@ -99,7 +99,7 @@ router.route('/pc_state/get').get((req, res) => {
 });
 
 router.route('/reset').get((req, res) => {
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			data.username = "";
 			data.password = "";

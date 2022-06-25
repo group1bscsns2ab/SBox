@@ -6,7 +6,7 @@ let Data = require('./../models/data.model');
 router.route('/update').get((req, res) => {
 	const url = "https://api.sinric.pro/api/v1/credentials/appkeyandsecret";
 
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			axios.get(url, {
 				headers: {
@@ -33,7 +33,7 @@ router.route('/update').get((req, res) => {
 });
 
 router.route('/get').get((req, res) => {
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			res.send({ success: true, 
 					   appkey: data.appkey,

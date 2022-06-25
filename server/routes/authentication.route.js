@@ -4,7 +4,7 @@ const axios = require('axios');
 let Data = require('./../models/data.model');
 
 router.route('/update/login').post((req, res) => {
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			data.username = req.body.username;
 			data.password = req.body.password;
@@ -20,7 +20,7 @@ router.route('/update/login').post((req, res) => {
 });
 
 router.route('/update/apiKey').post((req, res) => {
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			data.apiKey = req.body.apiKey;
 
@@ -35,7 +35,7 @@ router.route('/update/apiKey').post((req, res) => {
 });
 
 router.route('/update/appkey-appsecert').post((req, res) => {
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			data.appkey = req.body.appkey;
 			data.appsecert = req.body.appsecert;
@@ -54,7 +54,7 @@ router.route('/authenticate/:method').get((req, res) => {
 	const url = "https://api.sinric.pro/api/v1/auth"
 	const method = req.params.method
 
-	Data.findById("62b17fae197f8dce3cfd7915")
+	Data.findById(process.env.DOCID)
 		.then(data => {
 			if (method === "api_key") {
 				axios.post(url, { client_id: "iot-app"} , {
