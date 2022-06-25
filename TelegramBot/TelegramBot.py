@@ -23,7 +23,7 @@ def help(update, context):
 							  '/reset - Reset all information.\n\n'\
 							  '/wol - Trigger wake on lan\n\n'\
 							  '/pc_state - Returns PC state\n\n'\
-							  'Proper Execution:\n1. /update_api_key or /update_login\n2. /authenticate <method>\n3. /update_devices')
+							  'Proper Execution:\n1. /update_api_key or /update_login\n2. /authenticate <method>\n3. /update_credentials\n4. /update_devices')
 
 def update_api_key(update, context):
 	params = {
