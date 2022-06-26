@@ -54,7 +54,7 @@ router.route('/get').get((req, res) => {
 });
 
 
-router.route('/PC/ipaddress/:ipaddress/:macaddress').get((req, res) => {
+router.route('/PC/:ipaddress/:macaddress').get((req, res) => {
 	const ipaddress = req.params.ipaddress;
 	const macaddress = req.params.macaddress;
 
