@@ -19,15 +19,10 @@ router.route('/update').get((req, res) => {
 					let devices = [];
 
 					
-					response.data.devices.filter((img, index) => {
-						if (index === 6) return false;
-						return true;
-					}).map((device, index) => {
+					response.data.devices.map((device, index) => {
 						devices.push([device.id, device.name]);
 						
 					})
-
-					console.log(devices);
 
 					data.devices = devices;
 
