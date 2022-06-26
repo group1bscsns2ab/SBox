@@ -23,11 +23,11 @@ def help(update, context):
 							  '/update_pc_addresses <ipaddress> <macaddress> - updates PC ipaddress and mac address.\n\n'\
 							  '/reset - Reset all information.\n\n'\
 							  'Proper Execution:\n\
-								  1. /update_api_key or /update_login\n\
-								  2. /authenticate <method>\n\
-								  3. /update_credentials\n\
-								  4. /update_devices\n\
-								  5. /update_pc_addresses <ipaddress> <macaddress>')
+							  1. /update_api_key or /update_login\n\
+							  2. /authenticate <method>\n\
+							  3. /update_credentials\n\
+							  4. /update_devices\n\
+							  5. /update_pc_addresses <ipaddress> <macaddress>')
 
 def update_api_key(update, context):
 	params = {

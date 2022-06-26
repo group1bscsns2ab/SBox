@@ -40,7 +40,7 @@ const dataSchema = new Schema({
 	PC: {
 		type: [],
 		required: false
-	},
+	}
 }, {
 	timestamps: true
 });
