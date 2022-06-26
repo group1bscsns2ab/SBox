@@ -18,9 +18,13 @@ router.route('/update').get((req, res) => {
 				.then(response => {
 					let devices = [];
 
-					response.data.devices.map((device) => 	{
-						devices.push(device.id);
+					response.data.devices.map((device, index) => {
+						if(index === 6) continue;
+						else devices.push([device.id, device.name]);
+						
 					})
+
+					console.log(devices);
 
 					data.devices = devices;
 
@@ -46,57 +50,23 @@ router.route('/get').get((req, res) => {
 		})	
 });
 
-router.route('/wol/toggle').get((req, res) => {
+
+router.route('/PC/ipaddress/:ipaddress/:macaddress').get((req, res) => {
+	const ipaddress = req.params.ipaddress;
+	const macaddress = req.params.macaddress;
+
 	Data.findById(process.env.DOCID)
 		.then(data => {
-			data.wol = !data.wol;
+			data.PC[0] = ipaddress;
+			data.PC[1] = macaddress;
 
 			data.save()
 				.then(() => {
-					res.send({ success: true, value: data.wol, message: `[SUCCESS] value is ${data.wol}`});
-				})
-				.catch((err) => {
-					res.send({ success: false, message: err.message});
+					res.send({ message: "Success.", success: true});
 				})
 		})	
 });
 
-router.route('/wol/get').get((req, res) => {
-	Data.findById(process.env.DOCID)
-		.then(data => {
-			res.send({ success: true, value: data.wol, message: `[SUCCESS] value is ${data.wol}`});
-		})
-		.catch((err) => {
-				res.send({ success: false, message: err.message});
-		})	
-});
-
-router.route('/pc_state/update/:value').get((req, res) => {
-	const value = req.params.value;
-
-	Data.findById(process.env.DOCID)
-		.then(data => {
-			data.pc_state = value;
-
-			data.save()
-				.then(() => {
-					res.send({ success: true, value: data.pc_state, message: `[SUCCESS] value is ${data.pc_state}`});
-				})
-				.catch((err) => {
-					res.send({ success: false, message: err.message});
-				})
-		})	
-});
-
-router.route('/pc_state/get').get((req, res) => {
-	Data.findById(process.env.DOCID)
-		.then(data => {
-			res.send({ success: true, value: data.pc_state, message: `[SUCCESS] value is ${data.pc_state}`});
-		})
-		.catch((err) => {
-				res.send({ success: false, message: err.message});
-		})	
-});
 
 router.route('/reset').get((req, res) => {
 	Data.findById(process.env.DOCID)
@@ -106,7 +76,9 @@ router.route('/reset').get((req, res) => {
 			data.devices = [];
 			data.accessToken = "";
 			data.apiKey = "";
-			data.wol = false;
+			data.PC = [];
+			data.appkey = "";
+			data.appsecert = "";
 
 			data.save()
 				.then(() => {

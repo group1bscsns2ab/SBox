@@ -27,16 +27,6 @@ const dataSchema = new Schema({
 		required: false,
 		trim: true
 	},
-	wol: {
-		type: Boolean,
-		required: false,
-		trim: true
-	},
-	pc_state: {
-		type: Boolean,
-		required: false,
-		trim: true
-	},
 	appkey: {
 		type: String,
 		required: false,
@@ -46,6 +36,10 @@ const dataSchema = new Schema({
 		type: String,
 		required: false,
 		trim: true
+	},
+	PC: {
+		type: [],
+		required: false
 	},
 }, {
 	timestamps: true

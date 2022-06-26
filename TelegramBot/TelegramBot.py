@@ -13,17 +13,21 @@ def start(update, context):
 	update.message.reply_text("Welcome to Group 1: Project Telegram Bot\n\nEnter /help to get all the available commands.")
 
 def help(update, context):
-	update.message.reply_text('/update_api_key <api-key> - Updates API key needed for authentication.\n\n'\
-							  '/update_login <username> <password> - Updates login information needed for authentication.\n\n'\
-							  '/authenticate <method> (login/api-key) - Authenticates then entered credentials (API key/Login Information).\n\n'\
-							  '/update_credentials - Update App Key and App Secret Key.\n\n'\
-							  '/get_credentials - Get App Key and App Secret Key.\n\n'\
-							  '/update_devices - Updates the list of devices.\n\n'\
-							  '/get_devices - Get the list of devices.\n\n'\
+	update.message.reply_text('/update_api_key <api-key> - updates API key needed for authentication.\n\n'\
+							  '/update_login <username> <password> - updates login information needed for authentication.\n\n'\
+							  '/authenticate <method> (login/api-key) - authenticates then entered credentials (API key/Login Information).\n\n'\
+							  '/update_credentials - update App Key and App Secret Key.\n\n'\
+							  '/get_credentials - get App Key and App Secret Key.\n\n'\
+							  '/update_devices - updates the list of devices.\n\n'\
+							  '/get_devices - get the list of devices.\n\n'\
+							  '/update_pc_addresses <ipaddress> <macaddress> - updates PC ipaddress and mac address.\n\n'\
 							  '/reset - Reset all information.\n\n'\
-							  '/wol - Trigger wake on lan\n\n'\
-							  '/pc_state - Returns PC state\n\n'\
-							  'Proper Execution:\n1. /update_api_key or /update_login\n2. /authenticate <method>\n3. /update_credentials\n4. /update_devices')
+							  'Proper Execution:\n\
+								  1. /update_api_key or /update_login\n\
+								  2. /authenticate <method>\n\
+								  3. /update_credentials\n\
+								  4. /update_devices\n\
+								  5. /update_pc_addresses <ipaddress> <macaddress>')
 
 def update_api_key(update, context):
 	params = {
@@ -105,24 +109,13 @@ def get_devices(update, context):
 	else:
 		update.message.reply_text(response["message"])
 
-def wol(update, context):
-	endpoint = URL +"device/wol/toggle"
+def update_pc_addresses(update, context):
+	endpoint = URL + f"device/PC/{context.args[0]}/{context.args[1]}" 
 
 	request = requests.get(url=endpoint, headers=HEADERS)
 	response = request.json()
 
 	update.message.reply_text(response["message"])
-
-def pc_state(update, context):
-	endpoint = URL +"device/pc_state/get"
-
-	request = requests.get(url=endpoint, headers=HEADERS)
-	response = request.json()
-
-	if response["value"]:
-		update.message.reply_text("PC-STATE: On")
-	else:
-		update.message.reply_text("PC-STATE: Off")
 
 def reset(update, context):
 	endpoint = URL + "device/reset"
@@ -145,8 +138,7 @@ disp.add_handler(telegram.ext.CommandHandler("update_credentials", update_creden
 disp.add_handler(telegram.ext.CommandHandler("get_credentials", get_credentials))
 disp.add_handler(telegram.ext.CommandHandler("update_devices", update_devices))
 disp.add_handler(telegram.ext.CommandHandler("get_devices", get_devices))
-disp.add_handler(telegram.ext.CommandHandler("wol", wol))
-disp.add_handler(telegram.ext.CommandHandler("pc_state", pc_state))
+disp.add_handler(telegram.ext.CommandHandler("update_pc_addresses", update_pc_addresses))
 disp.add_handler(telegram.ext.CommandHandler("reset", reset))
 
 updater.start_polling()
