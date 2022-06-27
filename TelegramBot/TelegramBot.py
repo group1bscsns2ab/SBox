@@ -93,8 +93,13 @@ def update_devices(update, context):
 	request = requests.get(url=endpoint, headers=HEADERS)
 	response = request.json()
 	
+	devices = ""
+
+	for device in response['devices']:
+		devices += f"NAME: {device[1]}\nID: {device[0]}\n\n"
+
 	if response["success"]:
-		update.message.reply_text(f"[Update Success].\nYou have {len(response['devices'])} Devices \nDevices: \n{response['devices']}")
+		update.message.reply_text(f"You have {len(response['devices'])}\n" + devices)
 	else:
 		update.message.reply_text(response["message"])
 
@@ -103,8 +108,11 @@ def get_devices(update, context):
 
 	request = requests.get(url=endpoint, headers=HEADERS)
 	response = request.json()
-	
-	devices = "\n".join(response['devices'])
+
+	devices = ""
+
+	for device in response['devices']:
+		devices += f"NAME: {device[1]}\nID: {device[0]}\n\n"
 
 	if response["success"]:
 		update.message.reply_text(f"You have {len(response['devices'])}\n" + devices)
