@@ -104,8 +104,10 @@ def get_devices(update, context):
 	request = requests.get(url=endpoint, headers=HEADERS)
 	response = request.json()
 	
+	devices = "\n".join(response['devices'])
+
 	if response["success"]:
-		update.message.reply_text(f"You have {len(response['devices'])} Devices \nDevices:\n{response['devices']}")
+		update.message.reply_text(f"You have {len(response['devices'])}\n" + devices)
 	else:
 		update.message.reply_text(response["message"])
 
