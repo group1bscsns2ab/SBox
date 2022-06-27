@@ -97,9 +97,14 @@ def update_devices(update, context):
 
 	for index, device in enumerate(response['devices'], start=0):
 		if index == 0:
-			devices += f"[PC]\nNAME: {device[1]}\nID: {device[0]}\n\n"
+			devices += f"\n[PC]\nNAME: {device[1]}\nID: {device[0]}\n\n"
 		else:
 			devices += f"NAME: {device[1]}\nID: {device[0]}\n\n"
+
+	if response["success"]:
+		update.message.reply_text(f"You have {len(response['devices'])} devices\n" + devices)
+	else:
+		update.message.reply_text(response["message"])
 
 def get_devices(update, context):
 	endpoint = URL + "device/get"
@@ -111,13 +116,13 @@ def get_devices(update, context):
 
 	for index, device in enumerate(response['devices'], start=0):
 		if index == 0:
-			devices += f"[PC]\nNAME: {device[1]}\nID: {device[0]}\n\n"
+			devices += f"\n[PC]\nNAME: {device[1]}\nID: {device[0]}\n\n"
 		else:
 			devices += f"NAME: {device[1]}\nID: {device[0]}\n\n"
 		
 
 	if response["success"]:
-		update.message.reply_text(f"You have {len(response['devices'])}\n" + devices)
+		update.message.reply_text(f"You have {len(response['devices'])} devices\n" + devices)
 	else:
 		update.message.reply_text(response["message"])
 
