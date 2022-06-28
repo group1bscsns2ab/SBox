@@ -1,4 +1,4 @@
-const router = require('express').Router();
+ const router = require('express').Router();
 const axios = require('axios');
 
 let Data = require('./../models/data.model');

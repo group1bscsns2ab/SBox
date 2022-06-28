@@ -1,13 +1,14 @@
 import telegram.ext
 import requests
+import os
 
 URL = "https://api-group1bscsns2ab.herokuapp.com/"
 
 HEADERS = {
-	'x-api-key': "4A0YrrysiZeGgbOVm?gQEtROcOoJvxRShGeFIL?7xtWEWXX9U0x9DmXH?nP0s0MI"
+	'x-api-key': os.environ['API-KEY']
 }
 
-TOKEN = "5518955473:AAFnINxMGnTkvLpoDfXe3EGFC4h8Fx2AvR4"
+TOKEN = os.environ['TOKEN']
 
 def start(update, context):
 	update.message.reply_text("Welcome to Group 1: Project Telegram Bot\n\nEnter /help to get all the available commands.")

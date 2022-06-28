@@ -18,10 +18,8 @@ router.route('/update').get((req, res) => {
 				.then(response => {
 					let devices = [];
 
-					
 					response.data.devices.map((device, index) => {
 						devices.push([device.id, device.name]);
-						
 					})
 
 					data.devices = devices;
