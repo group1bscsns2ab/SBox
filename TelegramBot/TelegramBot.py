@@ -143,6 +143,9 @@ def reset(update, context):
 
 	update.message.reply_text(response["message"])
 
+def unknown(update, context):
+	update.message.reply_text("Unknown command. Type /help to get the list of all available command.")
+
 
 updater = telegram.ext.Updater(TOKEN, use_context=True)
 disp = updater.dispatcher
@@ -158,6 +161,7 @@ disp.add_handler(telegram.ext.CommandHandler("update_devices", update_devices))
 disp.add_handler(telegram.ext.CommandHandler("get_devices", get_devices))
 disp.add_handler(telegram.ext.CommandHandler("update_pc_addresses", update_pc_addresses))
 disp.add_handler(telegram.ext.CommandHandler("reset", reset))
+disp.add_handler(telegram.ext.MessageHandler(telegram.ext.Filters.command, unknown))
 
 updater.start_polling()
 updater.idle()
