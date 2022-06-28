@@ -11,7 +11,7 @@ HEADERS = {
 TOKEN = os.environ['TOKEN']
 
 def start(update, context):
-	update.message.reply_text("Welcome to Group 1: Project Telegram Bot\n\nEnter /help to get all the available commands.")
+	update.message.reply_text("SBox by BSCSNS2AB - Group 1\n\nEnter /help to get all the available commands.")
 
 def help(update, context):
 	update.message.reply_text('/update_api_key <api-key> - updates API key needed for authentication.\n\n'\
