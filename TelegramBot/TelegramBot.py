@@ -142,7 +142,7 @@ def get_pc_address(update, context):
 	request = requests.get(url=endpoint, headers=HEADERS)
 	response = request.json()
 
-	update.message.reply_text(f"IP ADDRESS: {response["PC"][0]}\nMAC ADDRESS: {response["PC"][1]}")
+	update.message.reply_text(f"IP ADDRESS: {response['PC'][0]}\nMAC ADDRESS: {response['PC'][1]}")
 
 def reset(update, context):
 	endpoint = URL + "device/reset"
