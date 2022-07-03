@@ -53,7 +53,9 @@ router.route('/PC/:ipaddress/:macaddress').get((req, res) => {
 
 	Data.findById(process.env.DOCID)
 		.then(data => {
-			data.PC[0] = ipaddress;
+			var split = ipaddress.split('.');
+			
+			data.PC[0] = split;
 			data.PC[1] = macaddress;
 
 			data.save()
@@ -64,14 +66,8 @@ router.route('/PC/:ipaddress/:macaddress').get((req, res) => {
 });
 
 router.route('/PC/get').get((req, res) => {
-	const ipaddress = req.params.ipaddress;
-	const macaddress = req.params.macaddress;
-
 	Data.findById(process.env.DOCID)
 		.then(data => {
-			data.PC[0] = ipaddress;
-			data.PC[1] = macaddress;
-
 			res.send({ PC: data.PC, success: true});
 		})	
 });

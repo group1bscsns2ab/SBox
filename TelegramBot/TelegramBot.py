@@ -21,14 +21,15 @@ def help(update, context):
 							  '/get_credentials - get App Key and App Secret Key.\n\n'\
 							  '/update_devices - updates the list of devices.\n\n'\
 							  '/get_devices - get the list of devices.\n\n'\
-							  '/update_pc_addresses <ipaddress> <macaddress> - updates PC ipaddress and mac address.\n\n'\
+							  '/update_pc_address <ipaddress> <macaddress> - updates PC ipaddress and mac address.\n\n'\
+							  '/get_pc_address - get pc address.\n\n'\
 							  '/reset - Reset all information.\n\n'\
 							  'Proper Execution:\n'\
 							  '1. /update_api_key or /update_login\n'\
 							  '2. /authenticate <method>\n'\
 							  '3. /update_credentials\n'\
 							  '4. /update_devices\n'\
-							  '5. /update_pc_addresses <ipaddress> <macaddress>')
+							  '5. /update_pc_address <ipaddress> <macaddress>')
 
 def update_api_key(update, context):
 	params = {
@@ -127,13 +128,21 @@ def get_devices(update, context):
 	else:
 		update.message.reply_text(response["message"])
 
-def update_pc_addresses(update, context):
+def update_pc_address(update, context):
 	endpoint = URL + f"device/PC/{context.args[0]}/{context.args[1]}" 
 
 	request = requests.get(url=endpoint, headers=HEADERS)
 	response = request.json()
 
 	update.message.reply_text(response["message"])
+
+def get_pc_address(update, context):
+	endpoint = URL + "device/PC/get" 
+
+	request = requests.get(url=endpoint, headers=HEADERS)
+	response = request.json()
+
+	update.message.reply_text(f"IP ADDRESS: {response["PC"][0]}\nMAC ADDRESS: {response["PC"][1]}")
 
 def reset(update, context):
 	endpoint = URL + "device/reset"
@@ -159,7 +168,8 @@ disp.add_handler(telegram.ext.CommandHandler("update_credentials", update_creden
 disp.add_handler(telegram.ext.CommandHandler("get_credentials", get_credentials))
 disp.add_handler(telegram.ext.CommandHandler("update_devices", update_devices))
 disp.add_handler(telegram.ext.CommandHandler("get_devices", get_devices))
-disp.add_handler(telegram.ext.CommandHandler("update_pc_addresses", update_pc_addresses))
+disp.add_handler(telegram.ext.CommandHandler("update_pc_address", update_pc_address))
+disp.add_handler(telegram.ext.CommandHandler("get_pc_address", get_pc_address))
 disp.add_handler(telegram.ext.CommandHandler("reset", reset))
 disp.add_handler(telegram.ext.MessageHandler(telegram.ext.Filters.command, unknown))
 
