@@ -15,7 +15,7 @@ def start(update, context):
 
 def help(update, context):
 	update.message.reply_text('/update_api_key <api-key> - updates API key needed for authentication.\n\n'\
-							  '/update_login <username> <password> - updates login information needed for authentication.\n\n'\
+							  '/update_login <email> <password> - updates login information needed for authentication.\n\n'\
 							  '/authenticate <method> (login/api-key) - authenticates then entered credentials (API key/Login Information).\n\n'\
 							  '/update_credentials - update App Key and App Secret Key.\n\n'\
 							  '/get_credentials - get App Key and App Secret Key.\n\n'\
@@ -25,8 +25,8 @@ def help(update, context):
 							  '/get_pc_address - get pc address.\n\n'\
 							  '/reset - Reset all information.\n\n'\
 							  'Proper Execution:\n'\
-							  '1. /update_api_key or /update_login\n'\
-							  '2. /authenticate <method>\n'\
+							  '1. /update_api_key <api-key> OR /update_login <email> <password>\n'\
+							  '2. /authenticate <method> (login/api-key)\n'\
 							  '3. /update_credentials\n'\
 							  '4. /update_devices\n'\
 							  '5. /update_pc_address <ipaddress> <macaddress>')
